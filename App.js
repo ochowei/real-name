@@ -1,35 +1,59 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { SafeAreaView, StyleSheet, Text, View, Button, Image } from 'react-native';
-import tailwind from 'tailwind-rn';
+import * as React from 'react';
+import { Button, View, Text } from 'react-native';
+import { NavigationContainer, DefaultTheme  } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import Home from './Home'
 
-export default function App() {
-  console.log(tailwind('bg-blue-200 px-3 py-1 rounded-full'));
+
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: '#004B9D'
+  },
+};
+
+function HomeScreen({ navigation }) {
   return (
-    <View  style={tailwind('h-full')}>
-		<View style={tailwind('mt-10 pt-20 items-center')}>
-    <Image
-        style={ {width: 238, height: 151, resizeMode: 'center' }} 
-        source={require('./assets/logo.png')}
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Home Screen</Text>
+      <Button
+        title="Go to Details"
+        onPress={() => navigation.navigate('Details')}
       />
-			<View style={tailwind('bg-blue-200 px-3 py-1 rounded-full')}>
-				<Text style={tailwind('bg-blue-500 text-white font-bold py-2 px-4 border border-blue-700 rounded')}>
-					Hello Tailwind
-				</Text>        
-			</View>
-      <Button title="Learn More" style={tailwind('bg-blue-500 text-white font-bold py-2 px-4 border border-blue-700 rounded')}>
-        Button
-      </Button>
-		</View>
-	</View>
+    </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+function DetailsScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Details Screen</Text>
+      <Button
+        title="Go to Details... again"
+        onPress={() => navigation.push('Details')}
+      />
+      <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
+      <Button title="Go back" onPress={() => navigation.goBack()} />
+      <Button
+        title="Go back to first screen in stack"
+        onPress={() => navigation.popToTop()}
+      />
+    </View>
+  );
+}
+
+const Stack = createStackNavigator();
+
+function App() {
+  return (
+    <NavigationContainer theme={MyTheme}>
+      <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Details" component={DetailsScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+export default App;
