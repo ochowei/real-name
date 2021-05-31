@@ -1,30 +1,17 @@
 import * as React from 'react';
 import { Button, View, Text } from 'react-native';
-import { NavigationContainer, DefaultTheme  } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from './components/Home';
 import ProviderRegist from './components/ProviderRegist';
 import CustomerRegist from './components/CustomerRegist';
 
-
 const MyTheme = {
   ...DefaultTheme,
   colors: {
-    ...DefaultTheme.colors
+    ...DefaultTheme.colors,
   },
 };
-
-function HomeScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
-      <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate('Details')}
-      />
-    </View>
-  );
-}
 
 function DetailsScreen({ navigation }) {
   return (
@@ -49,10 +36,10 @@ const Stack = createStackNavigator();
 function App() {
   return (
     <NavigationContainer theme={MyTheme}>
-      <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
+      <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="ProviderRegist" component={ProviderRegist} options={{headerShown: true}}/>
-        <Stack.Screen name="CustomerRegist" component={CustomerRegist} options={{headerShown: true}}/>
+        <Stack.Screen name="ProviderRegist" component={ProviderRegist} options={{ headerShown: true }} />
+        <Stack.Screen name="CustomerRegist" component={CustomerRegist} options={{ headerShown: true, title: 'Customer Registration' }} />
         <Stack.Screen name="Details" component={DetailsScreen} />
       </Stack.Navigator>
     </NavigationContainer>

@@ -13,7 +13,15 @@ export default function Home({ navigation }) {
           style={{ width: 238, height: 151, resizeMode: 'center' }}
           source={logo}
         />
-        <View style={tailwind('mt-10 pt-20')} />
+        <View style={tailwind('mt-10 pt-20 ')}>
+          <Text style={tailwind('text-white text-lg font-semibold')}> COVID-19 Real-Name Registration System</Text>
+
+        </View>
+        <View  style={tailwind('m-2')}>
+          <Text style={{ color: '#FFE600', ...tailwind('text-lg font-semibold')}}>
+            Scanning QR Code instead of Texting
+          </Text>
+        </View>
 
         <ProviderButton onPress={() => { navigation.navigate('ProviderRegist'); }} />
         <ConsumerButton onPress={() => { navigation.navigate('CustomerRegist'); }} />
