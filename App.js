@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from './components/Home';
 import ProviderRegist from './components/ProviderRegist';
 import CustomerRegist from './components/CustomerRegist';
+import CustomerQR from './components/CustomerQR';
 
 const MyTheme = {
   ...DefaultTheme,
@@ -40,6 +41,8 @@ function App() {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="ProviderRegist" component={ProviderRegist} options={{ headerShown: true }} />
         <Stack.Screen name="CustomerRegist" component={CustomerRegist} options={{ headerShown: true, title: 'Customer Registration' }} />
+        <Stack.Screen name="CustomerQR" component={CustomerQR} options={{ headerShown: true }} />
+
         <Stack.Screen name="Details" component={DetailsScreen} />
       </Stack.Navigator>
     </NavigationContainer>

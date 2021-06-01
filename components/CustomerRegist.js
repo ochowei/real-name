@@ -1,8 +1,32 @@
 import React from 'react';
-import { Text, View, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  Text, View, TextInput, TouchableOpacity, StyleSheet,
+} from 'react-native';
 import tailwind from 'tailwind-rn';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function CustomerRegist() {
+const storeData = async (key, value) => {
+  try {
+    await AsyncStorage.setItem(key, value)
+  } catch (e) {
+    // saving error
+  }
+}
+
+export default function CustomerRegist({ navigation }) {
+
+  const [name, setName] = React.useState('');
+  const [phone, setPhone] = React.useState('');
+
+
+  async function saveName() {
+    await AsyncStorage.setItem('customerName', name);
+  }
+
+  async function savePhone() {
+    await AsyncStorage.setItem('customerPhone', phone);
+  }
+
   return (
     <View style={tailwind('h-full')}>
       <View style={tailwind('mt-10 pt-20 items-center')}>
@@ -17,10 +41,13 @@ export default function CustomerRegist() {
             marginBottom: 10,
             backgroundColor: 'white',
           }}
+          value={name}
+
           placeholder="Name"
           autoFocus
+          onChangeText={text=>setName(text)}
         />
-        <View style={{ flexDirection: "row", width: 328}}>
+        <View style={{ flexDirection: 'row', width: 328 }}>
           <TextInput
             style={{
               width: 236,
@@ -32,13 +59,18 @@ export default function CustomerRegist() {
             placeholder="Phone Number"
 
           />
-          <QRButton ></QRButton>
+          <QRButton onPress={()=>{
+            saveName();
+            navigation.navigate('CustomerQR');
+          }} />
 
         </View>
       </View>
     </View>
   );
 }
+
+
 
 
 function QRButton(props) {
@@ -51,7 +83,7 @@ function QRButton(props) {
       elevation: 3,
       backgroundColor: '#004B9D',
       width: 88,
-      height: 44
+      height: 44,
     },
     text: {
       fontSize: 8,
@@ -67,4 +99,3 @@ function QRButton(props) {
     </TouchableOpacity>
   );
 }
-
