@@ -57,10 +57,11 @@ export default function CustomerRegist({ navigation }) {
               backgroundColor: 'white',
             }}
             placeholder="Phone Number"
-
+            onChangeText={text=>setPhone(text)}
           />
           <QRButton onPress={()=>{
             saveName();
+            savePhone();
             navigation.navigate('CustomerQR');
           }} />
 
